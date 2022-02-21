@@ -464,8 +464,7 @@ US Zip code Validatiion Program
 2.1 user input is formatted by `formatZipCode` and allocated to variable `userZipCode`
 2.2 variable `parent` represents the parent node of `zipCode`
 2.3 RegEx statement stored in pattern variable.   https://regexland.com/zip-codes/
-    `\d{5}([\-\ ]?` allows 4 consecutive digits followed by optional space or -
-    `\d{4}?` allows for last set of optional 4 consecutive digits
+    `\d{5}([\-\ ]?` allows 5 consecutive digits followed by optional space or -
 2.4 the first conditional statement will set all properties to default if event type is blur and user has
     provided no input
 2.5 if user input matches regex pattern, `valid` class will be added to `parent` and error message if displayed wil be hidden
@@ -479,7 +478,7 @@ zipCode.addEventListener('blur', (event) => {   //1
 function validateZipCode(event) {     //2
   let userZipCode = formatZipCode(event);        //2.1
   parent = zipCode.parentNode;            //2.2
-  pattern = /^\d{5}[\-\ ]?\d{4}?$/g;   //2.3
+  pattern = /^\d{5}$/g;   //2.3
 
   if (event.type == 'blur' && !userZipCode) {        //2.4
     parent.className = '';
@@ -507,8 +506,8 @@ function validateZipCode(event) {     //2
 
 function formatZipCode(event) {                    //3
   userZipCode = zipCode.value;                //3.1
-  pattern = /^(\d)[\-\ ]*(\d)[\-\ ]*(\d)[\-\ ]*(\d)[\-\ ]*(\d)[\-\ ]*(\d?)[\-\ ]*(\d?)[\-\ ]*(\d?)[\-\ ]*(\d?)[\-\ ]*$/g;      //3.2
-  userZipCode = userZipCode.replace(pattern, '$1$2$3$4$5 $6$7$8$9');                                //3.3
+  pattern = /^(\d)[\-\ ]*(\d)[\-\ ]*(\d)[\-\ ]*(\d)[\-\ ]*(\d)[\-\ ]*$/g;      //3.2
+  userZipCode = userZipCode.replace(pattern, '$1$2$3$4$5');                                //3.3
   zipCode.value = userZipCode;                                                //3.4
   return userZipCode;                                                              //3.5
 }
@@ -572,15 +571,35 @@ function formatCvv(event) {                    //3
 
 /*
 Validatiion on form submission Program
-This program will check if all required user input fields have valid data
+1   This program will check if all required user input fields have valid data and submit form if true.
+1.2 The `validPayment` function will validate credit card payment fields if user payment method
+    selection is `credit-card`. for other selections it wall validate `true`.
 */
 
-formSubmit.addEventListener('submit', (event) => {
+formSubmit.addEventListener('submit', (event) => {      //1
+  let validName = validateName(event);
+  let validEmail = validateEmail(event);
+  let validActivities = validateActivities(event);
+  var validPayMethod = validPayment();
 
-  if (!validateName(event) && !validateEmail(event) && !validateActivities(event) && !validateCCNumber(event) && !validateZipCode(event) && !validateCvv(event)) {
-    event.preventDefault();
-  } else {
+  function validPayment() {                             //1.2
+    let validCCNumb = validateCCNumber(event);
+    let validZip = validateZipCode(event);
+    let validCvv = validateCvv(event);
+    if ( paymentMethod.value == 'credit-card' ) {
+      if (validCCNumb && validZip && validCvv) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+  if ( validName && validEmail && validActivities && validPayMethod ) {
     formSubmit.submit();
+  } else {
+    event.preventDefault();
   }
 })
 
