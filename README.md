@@ -6,6 +6,7 @@ Exceed Expectations grade requirement 1
 "The user is prevented from selecting two activities that are at the same day and time."
 
 the `disableSameTimeActivity` function at line 177 fulfills this requirement
+
 The code is described in indexed comments below
 
 3   'event' parameter passed to the `disablSameTimeActivity' functions
@@ -29,7 +30,9 @@ The code is described in indexed comments below
 Exceed Expectations grade requirement 2
 
 "At least one required field validates user input in real time as the user interacts with the field."
+
 "At least one required form field provides validation error messages that differ depending on the reason the field is invalid."
+
 "Form fields that have real time validation and conditional error messages are detailed in the project’s README.me file."
 
 The program to meet all the above requirement is coded in `validateName` and `formatName` functions attached to an event listener triggered on `keyup` event at line 261.
