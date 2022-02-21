@@ -41,7 +41,7 @@ const registerActivity = getId('activities');     //14
 const cardNumber = getId('cc-num');     //15
 const zipCode = getId('zip');         //16
 const cvv = getId('cvv');         //17
-const formSubmit = document.querySelector('button[type=submit]');
+const formSubmit = document.querySelector('form');
 
 /*
 code script
@@ -262,10 +262,6 @@ name.addEventListener('keyup', (event) => {   //1
   validateName(event)       //1.1
 })
 
-// name.addEventListener('blur', (event) => {
-//   validateName(event)
-// })
-
 function validateName(event) {        //2
   let userName = name.value;          //2.1
   let parent = name.parentNode;         //2.2
@@ -290,7 +286,6 @@ function validateName(event) {        //2
       } else {
         parent.lastElementChild.innerHTML = `"${userName.charAt(userName.length - 1)}" is not allowed. Only English aplhabet, - and ' characters are allowed.`
       }
-      // if ( event.type == 'blur' || event.type == 'keyup') {name.focus();}
       parent.className = 'not-valid';
       return false;
     }
@@ -580,10 +575,12 @@ Validatiion on form submission Program
 This program will check if all required user input fields have valid data
 */
 
-formSubmit.addEventListener('click', (event) => {
+formSubmit.addEventListener('submit', (event) => {
 
   if (!validateName(event) && !validateEmail(event) && !validateActivities(event) && !validateCCNumber(event) && !validateZipCode(event) && !validateCvv(event)) {
     event.preventDefault();
+  } else {
+    formSubmit.submit();
   }
 })
 
