@@ -375,7 +375,8 @@ activities Validatiion Program
 */
 
 function validateActivities() {     //1
-  var checked = 0;                      //1.1
+  var checked = 0;
+                        //1.1
   register.forEach((activity, i) => {   //1.2
     if ( activity.checked ) {
       checked++;
@@ -383,9 +384,13 @@ function validateActivities() {     //1
   });
   if ( checked > 0 ) {                                          //1.3
     registerActivity.lastElementChild.style.display = 'none';
+    registerActivity.classList.remove('not-valid');
+    registerActivity.classList.add('valid');
     return true;
   } else {                                                      //1.4
     registerActivity.lastElementChild.style.display = 'initial';
+    registerActivity.classList.remove('valid');
+    registerActivity.classList.add('not-valid');
     return false;
   }
 }
