@@ -425,7 +425,7 @@ cardNumber.addEventListener('blur', (event) => {   //1
 function validateCCNumber(event) {     //2
   let userCCNo = formatCCNo(event);        //2.1
   parent = cardNumber.parentNode;            //2.2
-  pattern = /^(\d{4}[\ \-]?){3}([\d{1}]|[\d{4}][\ \-]?)*$/g;   //2.3
+  pattern = /^(\d{4}[\ ]){3}(\d{1}|\d{2}|\d{3}|\d{4})[\ ]?$/g;   //2.3
 
   if (event.type == 'blur' && !userCCNo) {        //2.4
     parent.className = '';
@@ -453,7 +453,7 @@ function validateCCNumber(event) {     //2
 
 function formatCCNo(event) {                    //3
   userCCNo = cardNumber.value;                //3.1
-  pattern = /^(\d{4})[\ \-]*(\d{4})[\ \-]*(\d{4})[\ \-]*([\d{1}?]|\d{4})[\ \-]*?$/g;      //3.2
+  pattern = /^(\d{4})[\ \-]*(\d{4})[\ \-]*(\d{4})[\ \-]*(\d{1}|\d{2}|\d{3}|\d{4})[\ \-]*?$/g;      //3.2
   userCCNo = userCCNo.replace(pattern, '$1 $2 $3 $4');                                //3.3
   cardNumber.value = userCCNo;                                                //3.4
   return userCCNo;                                                              //3.5
